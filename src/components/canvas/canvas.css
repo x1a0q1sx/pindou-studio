@@ -1,0 +1,171 @@
+/**
+ * components/canvas/canvas.css —— 画布相关组件样式。
+ * StageCanvas / RegionNavigator / MiniMap / RulerOverlay
+ */
+
+/* ================= StageCanvas 包裹 ================= */
+.pdb-stage-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.pdb-stage-wrap .pdb-stage-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+/* ================= RulerOverlay ================= */
+.pdb-ruler-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 80;
+}
+.pdb-ruler-overlay__corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.pdb-ruler-overlay__top {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+.pdb-ruler-overlay__left {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+}
+
+/* ================= RegionNavigator ================= */
+.pdb-region-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.pdb-region-nav__controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pdb-region-nav__label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  color: var(--text);
+  flex: 1;
+  justify-content: center;
+}
+.pdb-region-nav__label strong {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--primary);
+}
+.pdb-region-nav__step {
+  font-size: 11px;
+  color: var(--text-mute);
+  margin-left: 4px;
+}
+.pdb-region-nav__splits {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+.pdb-region-nav__split-axis {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.pdb-region-nav__split-axis-label {
+  min-width: 34px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-soft, inherit);
+  text-align: center;
+}
+.pdb-region-nav__split-times {
+  color: var(--text-mute, #999);
+  font-size: 11px;
+}
+
+.pdb-region-nav__split-btn {
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-soft);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--motion-ease), background var(--motion-fast) var(--motion-ease);
+}
+.pdb-region-nav__split-btn:hover {
+  border-color: var(--primary);
+  color: var(--text);
+}
+.pdb-region-nav__split-btn.is-active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--text);
+}
+.pdb-region-nav__grid {
+  display: grid;
+  gap: 3px;
+}
+.pdb-region-nav__cell {
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-mute);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--motion-fast) var(--motion-ease);
+}
+.pdb-region-nav__cell:hover {
+  border-color: var(--primary);
+  color: var(--text);
+}
+.pdb-region-nav__cell.is-active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+
+/* ================= MiniMap ================= */
+.pdb-minimap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.pdb-minimap__canvas {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: box-shadow var(--motion-fast) var(--motion-ease);
+}
+.pdb-minimap__canvas:hover {
+  box-shadow: var(--shadow-md);
+}
+.pdb-minimap__label {
+  font-size: 10px;
+  color: var(--text-mute);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}

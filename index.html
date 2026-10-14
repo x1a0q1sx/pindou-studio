@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 拼豆工作台会以 file:// 在 Electron 中运行，禁用 CSP 限制外的全部走本地资源 -->
+    <title>PinDou Studio · 智能拼豆板工作台</title>
+    <style>
+      /* 首帧防白闪：底色与默认主题 macaron 一致 */
+      html, body, #root { height: 100%; margin: 0; background: #fff8f2; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

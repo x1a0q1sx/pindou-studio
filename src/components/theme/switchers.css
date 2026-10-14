@@ -1,0 +1,85 @@
+/**
+ * theme/switchers.css —— ThemeSwitcher / LayoutSwitcher 卡片样式。
+ * 入场错峰（pdb-card-in + 内联 animation-delay）。
+ */
+
+.pdb-switcher-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.pdb-theme-card,
+.pdb-layout-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--text);
+  animation: pdb-card-in var(--motion-base) var(--motion-ease) backwards;
+}
+.pdb-theme-card:hover,
+.pdb-layout-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.pdb-theme-card.is-active,
+.pdb-layout-card.is-active {
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+.pdb-theme-card__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+.pdb-theme-card__head strong { font-weight: 700; }
+.pdb-theme-card__head em {
+  font-style: normal;
+  font-size: 11px;
+  color: var(--text-mute);
+}
+.pdb-theme-card__check {
+  margin-left: auto;
+  display: flex;
+  color: var(--primary);
+}
+
+.pdb-theme-card__mini {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+}
+
+.pdb-theme-card__swatches {
+  display: flex;
+  gap: 5px;
+}
+.pdb-theme-card__swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(128, 128, 128, 0.18);
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+.pdb-theme-card:hover .pdb-theme-card__swatch {
+  transform: translateY(-2px);
+}
+
+.pdb-theme-card__desc {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
+.pdb-layout-card__wire {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+}

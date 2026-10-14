@@ -1,0 +1,61 @@
+{
+  "name": "pindou-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "智能拼豆板工作台：把屏幕变成发光底板，按真实物理尺寸 1:1 渲染钉位网格，逐颗放豆",
+  "author": "PinDou Studio",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/x1a0q1sx/pindou-studio.git"
+  },
+  "homepage": "https://github.com/x1a0q1sx/pindou-studio#readme",
+  "bugs": {
+    "url": "https://github.com/x1a0q1sx/pindou-studio/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "electron/main.mjs",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k -n VITE,ELECTRON -c cyan,magenta \"vite\" \"wait-on tcp:127.0.0.1:5173 && cross-env VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .\"",
+    "dev:web": "vite",
+    "test": "vitest run",
+    "test:types": "tsc --noEmit -p tsconfig.tests.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test:core": "node scripts/run-core-tests.mjs",
+    "check:cjk": "node scripts/check-cjk.mjs",
+    "build": "node scripts/check-cjk.mjs && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "start": "cross-env PDB_START_DIST=1 electron .",
+    "dist": "npm run build && node scripts/pre-clean-dist.mjs && node scripts/dist-win.mjs",
+    "clean": "node scripts/clean.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^44.2.0",
+    "electron-builder": "^26.15.3",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.71.1",
+    "vite": "^6.0.5",
+    "vitest": "^5.0.0",
+    "wait-on": "^8.0.1"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.2"
+  }
+}

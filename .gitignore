@@ -1,0 +1,25 @@
+# ---- 依赖与构建产物 ----
+node_modules/
+node_modules/.tmp/
+dist/
+release*/
+*.tsbuildinfo
+
+# ---- 日志与运行痕迹 ----
+*.log
+*.tmp
+
+# ---- 编辑器与系统 ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ---- 本地工具产物（不进公开仓库） ----
+.wb-bridge/
+ui.xml
+amx.bin
+arsc.bin
+/sp*.png
+/app*.png

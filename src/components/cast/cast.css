@@ -1,0 +1,146 @@
+/**
+ * cast/cast.css —— 手机投图对话框。仅用 tokens.css 已注册变量。
+ */
+
+.pdb-cast {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pdb-cast__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pdb-cast__chip {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-mute);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+}
+.pdb-cast__chip.is-on {
+  color: var(--success);
+  border-color: color-mix(in srgb, var(--success) 45%, transparent);
+}
+
+.pdb-cast__alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);
+  border-radius: var(--radius-md);
+}
+
+.pdb-cast__qr {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+.pdb-cast__qr-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  background: #fff; /* 二维码白底固定，保证扫码对比度 */
+}
+.pdb-cast__qr-side {
+  flex: 1 1 240px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pdb-cast__howto {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+.pdb-cast__howto b { color: var(--text); }
+.pdb-cast__url {
+  font-family: Consolas, monospace;
+  font-size: 11.5px;
+  color: var(--text-soft);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 8px;
+  word-break: break-all;
+}
+.pdb-cast__url-acts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pdb-cast__inbox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pdb-cast__inbox .pdb-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pdb-cast__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 22vh;
+  overflow-y: auto;
+}
+.pdb-cast__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.pdb-cast__time { color: var(--text-mute); font-family: Consolas, monospace; }
+.pdb-cast__pane {
+  font-weight: 700;
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  background: var(--primary-soft);
+  color: var(--text);
+}
+.pdb-cast__name {
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+}
+.pdb-cast__status { margin-left: auto; color: var(--text-mute); white-space: nowrap; }
+.pdb-cast__row.is-applied .pdb-cast__status { color: var(--success); }
+.pdb-cast__row.is-error .pdb-cast__status { color: var(--danger); }
+
+.pdb-cast__muted { color: var(--text-mute); font-size: 12.5px; margin: 0; }
+.pdb-cast__note {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-mute);
+  line-height: 1.6;
+}

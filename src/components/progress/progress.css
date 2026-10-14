@@ -1,0 +1,929 @@
+/**
+ * progress.css —— 拼豆/筛选/进度面板专用样式。
+ * 仅本文件所有，不触碰 tokens.css / components.css / tools.css。
+ * 使用 tokens.css 定义的 CSS 变量（--surface, --text, --primary, --border, --radius-sm 等）。
+ */
+
+/* ═══════════════════════════════════════════════════════════════════
+   共用工具类
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pdb-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pdb-hint {
+  font-size: 11px;
+  color: var(--text-mute);
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FilterControls (.pdb-filter)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pdb-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.pdb-filter__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pdb-filter__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--border-strong);
+  flex-shrink: 0;
+}
+.pdb-filter__swatch[data-empty] {
+  background: repeating-linear-gradient(135deg, transparent, transparent 2px, var(--border) 2px, var(--border) 4px);
+}
+
+.pdb-filter__colorname {
+  font-size: 12px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdb-filter__actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ColorProgressList (.pdb-cpl)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pdb-cpl {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.pdb-cpl__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pdb-cpl__scopes {
+  display: flex;
+  gap: 2px;
+}
+
+.pdb-cpl__scope {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background var(--motion-fast, 120ms), color var(--motion-fast, 120ms);
+}
+.pdb-cpl__scope[data-active='true'] {
+  background: var(--primary);
+  color: var(--primary-contrast);
+  border-color: var(--primary);
+}
+
+/* 汇总读数 */
+.pdb-cpl__summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pdb-cpl__summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.pdb-cpl__summary-text strong {
+  font-size: 18px;
+  color: var(--text);
+}
+.pdb-cpl__summary-text span {
+  font-size: 11px;
+  color: var(--text-mute);
+}
+
+/* 进度环尺寸 */
+.pdb-cpl__ring {
+  flex-shrink: 0;
+}
+
+/* 排序/工具 */
+.pdb-cpl__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pdb-cpl__sorts {
+  display: flex;
+  gap: 2px;
+}
+
+.pdb-cpl__sort {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm, 10px);
+  border: 1px solid transparent;
+  background: var(--surface-2);
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background var(--motion-fast, 120ms);
+}
+.pdb-cpl__sort[data-active='true'] {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.pdb-cpl__actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* 列表 */
+.pdb-cpl__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.pdb-cpl__row {
+  display: grid;
+  grid-template-columns: 16px 1fr auto 24px 32px;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm, 10px);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: background var(--motion-fast, 120ms), border-color var(--motion-fast, 120ms);
+}
+.pdb-cpl__row:hover {
+  background: var(--surface-hover);
+}
+.pdb-cpl__row.is-active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.pdb-cpl__row.is-done {
+  opacity: 0.55;
+}
+
+.pdb-cpl__swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--border-strong);
+}
+
+.pdb-cpl__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.pdb-cpl__code {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pdb-cpl__name {
+  font-size: 10px;
+  color: var(--text-mute);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdb-cpl__nums {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.pdb-cpl__remain {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--warning);
+}
+.pdb-cpl__remain[data-done] {
+  color: var(--success);
+}
+
+.pdb-cpl__sub {
+  font-size: 9px;
+  color: var(--text-mute);
+}
+
+.pdb-cpl__pct {
+  font-size: 10px;
+  color: var(--text-soft);
+  text-align: right;
+}
+
+.pdb-cpl__empty {
+  padding: 12px 0;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PlacementBar (.pdb-pbar)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pdb-pbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface);
+  border-radius: var(--radius-md, 14px);
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.pdb-pbar--overlay {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  background: var(--surface);
+  box-shadow: var(--shadow-md, 0 6px 18px rgba(0,0,0,0.1));
+}
+
+.pdb-pbar__nav {
+  display: flex;
+  gap: 2px;
+}
+
+.pdb-pbar__region {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pdb-pbar__region strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-contrast);
+}
+
+.pdb-pbar__step {
+  font-size: 10px;
+  color: var(--text-mute);
+}
+
+.pdb-pbar__sep {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.pdb-pbar__remain {
+  font-size: 12px;
+}
+.pdb-pbar__remain strong {
+  font-weight: 700;
+  color: var(--warning);
+}
+
+.pdb-pbar__color {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.pdb-pbar__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  border: 1px solid var(--border-strong);
+}
+.pdb-pbar__swatch[data-empty] {
+  background: repeating-linear-gradient(135deg, transparent, transparent 2px, var(--border) 2px, var(--border) 4px);
+}
+
+.pdb-pbar__spacer {
+  flex: 1;
+}
+
+.pdb-pbar__awake {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text-mute);
+  cursor: pointer;
+  transition: background var(--motion-fast, 120ms), color var(--motion-fast, 120ms);
+}
+.pdb-pbar__awake[data-on='true'] {
+  background: var(--success);
+  color: #fff;
+  border-color: var(--success);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PlacementSettings (.pdb-psettings)
+   ═══════════════════════════════════════════════════════════════════ */
+
+.pdb-psettings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+.pdb-psettings__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pdb-psettings__switches {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pdb-psettings__sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pdb-psettings__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pdb-psettings__name {
+  font-size: 11px;
+  color: var(--text-soft);
+  min-width: 42px;
+  flex-shrink: 0;
+}
+
+.pdb-psettings__row .pdb-slider {
+  flex: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PlacementOverlay：拼豆模式只展示板子 + 一条**顶部常驻控制条**，
+   主操作（换色 / 本色拼完 / 退出）永远一步可达；「更多操作」再展开高级面板。
+   ═══════════════════════════════════════════════════════════════════ */
+
+#pdb-placement-overlay-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+}
+#pdb-placement-overlay-root:empty {
+  display: none;
+}
+
+/* ═══ 紧凑悬浮控制胶囊 ═══
+   用户反馈一稿通栏太占地方：二稿改为顶部居中小胶囊，
+   默认只露「◀ ●色号 剩N ▶」，悬停/键盘聚焦才展开完整操作；
+   「更多操作」是锚在胶囊下的小浮窗，不再是条内通栏面板。 */
+
+/* 拼豆模式下把画布整体下移，避免胶囊盖住最上面一行格子。
+   用 html 标记选择器而非组件内联样式：画布区在 AppShell内，
+   与 progress.css 的隐藏规则同源，改一处即可（双保险约定）。 */
+html[data-pdb-placement='on'] .pdb-canvas-area--full {
+  padding-top: var(--pdb-ptb-height, 46px);
+  box-sizing: border-box;
+}
+
+/* 外壳铺满宽度负责定位，但 pointer-events:none 让胶囊外区域透传给画布 */
+.pdb-ptb-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.pdb-ptb {
+  pointer-events: auto;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  padding: 4px 8px;
+  border-radius: var(--radius-pill, 999px);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.26);
+  animation: pdb-ptb-in 160ms var(--motion-ease, ease);
+}
+@keyframes pdb-ptb-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdb-ptb, .pdb-ptb__pop { animation: none; }
+}
+
+/* 操作组**常显**（三稿修复）：二稿的「悬停展开」会让胶囊宽度突变、整体重新居中平移
+   百余像素 —— 鼠标从画布移向色卡的那一瞬间布局一变，瞄准点就漂了，点哪全凭运气
+   （时好时坏）。常显后胶囊宽度恒定、零位移，点谁是谁。 */
+.pdb-ptb__more {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* 读数区：色块 + 色号 + 剩余颗数（换色时读屏播报） */
+.pdb-ptb__readout {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill, 999px);
+  background: var(--surface-2);
+}
+.pdb-ptb__swatch {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong, rgba(255, 255, 255, 0.25));
+  box-shadow: 0 0 8px color-mix(in srgb, currentColor 40%, transparent);
+}
+.pdb-ptb__swatch[data-empty='true'] {
+  background: repeating-linear-gradient(45deg, transparent, transparent 4px, var(--border) 4px, var(--border) 8px);
+}
+.pdb-ptb__code {
+  font-family: Consolas, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.pdb-ptb__remain {
+  font-size: 12px;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+.pdb-ptb__remain strong {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0 1px;
+}
+
+.pdb-ptb .pdb-btn { white-space: nowrap; }
+
+/* ── 接下来的色卡（三稿）：点击直接切色，不再用抽象箭头猜下一色 ── */
+.pdb-ptb__nexts {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.pdb-ptb__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 9px 0 7px;
+  border-radius: var(--radius-pill, 999px);
+  border: 1px solid color-mix(in srgb, var(--primary) 55%, var(--border));
+  background: color-mix(in srgb, var(--primary) 10%, var(--surface-2));
+  cursor: pointer;
+  transition: border-color 120ms var(--motion-ease, ease), background 120ms var(--motion-ease, ease);
+}
+.pdb-ptb__next:hover {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 20%, var(--surface-2));
+}
+.pdb-ptb__next:focus-visible { outline: 2px solid var(--focus-ring, #4cc9ff); outline-offset: 1px; }
+.pdb-ptb__next .pdb-ptb__swatch { width: 14px; height: 14px; }
+.pdb-ptb__next .pdb-ptb__code { font-size: 13px; }
+.pdb-ptb__next .pdb-ptb__remain { font-size: 11px; }
+.pdb-ptb__next .pdb-ptb__remain strong { font-size: 13px; }
+
+.pdb-ptb__qtoggle {
+  width: 24px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: transform 120ms var(--motion-ease, ease);
+}
+.pdb-ptb__qtoggle:hover { border-color: var(--border-strong, var(--text-mute)); color: var(--text); }
+.pdb-ptb__qtoggle:focus-visible { outline: 2px solid var(--focus-ring, #4cc9ff); outline-offset: 1px; }
+.pdb-ptb__qtoggle[aria-expanded='true'] { transform: rotate(180deg); color: var(--text); }
+
+/* 读数完成态：当前色在统计范围内已全部拼完（剩 0 显示成「已拼完」） */
+.pdb-ptb__readout[data-done='true'] { border-color: color-mix(in srgb, var(--success) 45%, var(--border)); }
+.pdb-ptb__readout[data-done='true'] .pdb-ptb__remain { color: var(--success); font-weight: 600; }
+.pdb-ptb__readout[data-done='true'] .pdb-ptb__swatch { opacity: 0.45; }
+
+/* ── 色卡队列弹层：全部颜色按剩余排序，点谁切谁 ── */
+.pdb-ptb__queue {
+  pointer-events: auto;
+  margin-top: 6px;
+  width: min(300px, calc(100vw - 24px));
+  max-height: min(56vh, 480px);
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.32);
+  animation: pdb-ptb-in 140ms var(--motion-ease, ease);
+}
+.pdb-ptb__qHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px 7px;
+  border-bottom: 1px solid var(--border);
+}
+.pdb-ptb__qHead .pdb-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  margin-right: auto;
+}
+.pdb-ptb__qScope { font-size: 11px; color: var(--text-soft); }
+.pdb-ptb__qlist {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.pdb-ptb__qrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
+.pdb-ptb__qrow:hover { background: var(--surface-2); }
+.pdb-ptb__qrow:focus-visible { outline: 2px solid var(--focus-ring, #4cc9ff); outline-offset: -2px; }
+.pdb-ptb__qrow.is-active {
+  border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+.pdb-ptb__qrow.is-done { opacity: 0.5; cursor: default; }
+.pdb-ptb__qrow.is-done:hover { background: transparent; }
+.pdb-ptb__qcode {
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.pdb-ptb__qname {
+  font-size: 12px;
+  color: var(--text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: auto;
+}
+.pdb-ptb__qremain { font-size: 12px; color: var(--text-soft); white-space: nowrap; }
+.pdb-ptb__qrow:not(.is-done) .pdb-ptb__qremain { color: var(--text); font-weight: 600; }
+.pdb-ptb__qEmpty { padding: 10px 12px; }
+.pdb-ptb__qHint {
+  padding: 7px 12px 9px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-mute);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdb-ptb__queue { animation: none; }
+}
+
+/* 统计范围开关（本区 / 全板） */
+.pdb-ptb__scopeToggle {
+  height: 26px;
+  min-width: 40px;
+  padding: 0 8px;
+  font-size: 12px;
+  color: var(--text-soft);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.pdb-ptb__scopeToggle:hover { border-color: var(--border-strong, var(--text-mute)); color: var(--text); }
+.pdb-ptb__scopeToggle:focus-visible { outline: 2px solid var(--focus-ring, #4cc9ff); outline-offset: 1px; }
+
+/* 手机点亮徽标：虚拟板收到 App 节目、主画布发光板显示手机图案时出现 */
+.pdb-ptb__vbchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 26px;
+  padding: 0 4px 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 38%, transparent);
+}
+.pdb-ptb__vbchip strong { font-weight: 600; }
+.pdb-ptb__vbchip__x {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 11px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.pdb-ptb__vbchip__x:hover { background: color-mix(in srgb, var(--danger) 22%, transparent); }
+.pdb-ptb__vbchip__x:focus-visible { outline: 2px solid var(--focus-ring, #4cc9ff); outline-offset: 1px; }
+
+/* ⚙「更多操作」小浮窗：锚在胶囊正下方的 360px 小窗，不挡整块画布 */
+.pdb-ptb__pop {
+  pointer-events: auto;
+  margin-top: 6px;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(62vh, 560px);
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.32);
+  padding: 10px 12px 12px;
+  animation: pdb-ptb-in 140ms var(--motion-ease, ease);
+}
+.pdb-ptb__popHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.pdb-ptb__popHead .pdb-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  margin-right: auto;
+}
+.pdb-ptb__popBody { display: flex; flex-direction: column; gap: 10px; }
+
+/* ═══ 「本色拼完」二次确认（批量写入不可逆，必须显式确认）═══ */
+.pdb-ptb-confirm {
+  position: fixed;
+  inset: 0;
+  z-index: 12100; /* 高于顶部条（9500）与 Tooltip（12000）之外的一切普通 UI */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+}
+.pdb-ptb-confirm__box {
+  width: min(420px, calc(100vw - 40px));
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: var(--shadow-lg, 0 18px 44px rgba(0, 0, 0, 0.3));
+  padding: 18px 20px 16px;
+}
+.pdb-ptb-confirm__title { margin: 0 0 8px; font-size: 16px; font-weight: 700; }
+.pdb-ptb-confirm__body { margin: 0 0 16px; font-size: 13px; line-height: 1.65; color: var(--text-soft); }
+.pdb-ptb-confirm__acts { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   拼豆模式只展示板子：html[data-pdb-placement=on] 期间隐藏布局自身的全部
+   工具界面——经典/悬浮/上下分区的工具条、左右面板、状态栏，以及 focus 布局的顶部色条、
+   底部 HUD、右上快捷条。操作入口只剩 overlay 里的顶部常驻控制条（.pdb-ptb）。
+   ═══════════════════════════════════════════════════════════════════ */
+
+html[data-pdb-placement='on'] .pdb-toolbar,
+html[data-pdb-placement='on'] .pdb-left-rail,
+html[data-pdb-placement='on'] .pdb-right-panel,
+html[data-pdb-placement='on'] .pdb-statusbar,
+html[data-pdb-placement='on'] .pdb-float-panel,
+html[data-pdb-placement='on'] .pdb-split-bottom,
+html[data-pdb-placement='on'] .pdb-focus-strip,
+html[data-pdb-placement='on'] .pdb-focus-hud,
+html[data-pdb-placement='on'] .pdb-focus-quickbar {
+  display: none !important;
+}
+
+/* 格距信息芯片（拼豆面板：1:1 依据自查） */
+.pdb-pbar__pitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--text-muted, var(--text));
+  cursor: help;
+  white-space: nowrap;
+}
+
+/* ================= 尺子核对 · 快速校准 ================= */
+.pdb-pcal {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+.pdb-pcal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.pdb-pcal__hint {
+  margin: 6px 0;
+  font-size: 12px;
+  color: var(--text-muted, var(--text));
+  line-height: 1.5;
+}
+.pdb-pcal__ruler-box {
+  padding: 10px 4px 4px;
+  overflow: hidden;
+}
+.pdb-pcal__ruler {
+  position: relative;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-top-width: 2px;
+  border-radius: 4px;
+  background: var(--bg-alt);
+}
+.pdb-pcal__tick {
+  position: absolute;
+  bottom: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--text-muted, var(--text));
+}
+.pdb-pcal__tick.is-major {
+  height: 16px;
+  background: var(--text);
+}
+.pdb-pcal__tick em {
+  position: absolute;
+  bottom: 17px;
+  left: 0;
+  transform: translateX(-50%);
+  font-style: normal;
+  font-size: 9.5px;
+  color: var(--text-muted, var(--text));
+  white-space: nowrap;
+}
+.pdb-pcal__sliders {
+  margin: 6px 0;
+}
+.pdb-pcal__presets {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 6px 0;
+}
+.pdb-pcal__presets .pdb-label {
+  margin-right: 2px;
+}
+.pdb-pcal__note {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--text-muted, var(--text));
+}
+
+/* ---- 整板对位（PlacementCalibration 新增） ---- */
+.pdb-pcal__board-align {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.pdb-pcal__board-readout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+.pdb-pcal__board-readout strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.pdb-pcal__hint {
+  margin: 0;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text-mute);
+}
+.pdb-pcal__hint b { color: var(--text-soft); }
+.pdb-pcal__nudge {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ---- 整板对位·逐轴实测反算 ---- */
+.pdb-pcal__measure {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pdb-pcal__measure-input {
+  width: 64px;
+  height: 28px;
+  padding: 0 8px;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+.pdb-pcal__measure-input:focus-visible { border-color: var(--focus-ring); }
+.pdb-pcal__measure-input::placeholder { color: var(--text-mute); }
+.pdb-pcal__measure-x { color: var(--text-mute); }

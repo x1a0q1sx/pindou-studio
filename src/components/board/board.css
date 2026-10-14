@@ -1,0 +1,498 @@
+/**
+ * components/board/board.css —— 校准向导、标尺、显示器选择器、板参数表单、预设芯片样式。
+ * 全部走令牌；与  的可爱柔和基调一致（圆角、柔和配色、清晰图标、舒适动效）。
+ */
+
+/* ================= PresetChips ================= */
+.pdb-preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pdb-preset-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-soft);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+  white-space: nowrap;
+}
+.pdb-preset-chip:hover {
+  border-color: var(--primary);
+  background: var(--surface-hover);
+  color: var(--text);
+}
+.pdb-preset-chip:active {
+  transform: scale(0.96);
+}
+.pdb-preset-chip[data-active='true'] {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--text);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.pdb-preset-chip__badge {
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--primary-contrast);
+  font-weight: 700;
+}
+
+/* ================= BoardParamsForm ================= */
+.pdb-board-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pdb-board-form__section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pdb-board-form__title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ================= DisplayPicker ================= */
+.pdb-display-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pdb-display-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease);
+}
+.pdb-display-card:hover:not(.is-disabled) {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+.pdb-display-card:active:not(.is-disabled) {
+  transform: scale(0.98);
+}
+.pdb-display-card[data-active='true'] {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  box-shadow: 0 0 0 2px var(--focus-ring);
+}
+.pdb-display-card.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--surface-2);
+}
+.pdb-display-card__name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pdb-display-card__meta {
+  font-size: 11px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.pdb-display-card__warning {
+  font-size: 11px;
+  color: var(--warning);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pdb-display-card__fits {
+  font-size: 11px;
+  font-weight: 600;
+}
+.pdb-display-card__fits--yes { color: var(--success); }
+.pdb-display-card__fits--no { color: var(--danger); }
+
+/* ================= CalibrationWizard ================= */
+.pdb-cal-wizard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.pdb-cal-wizard__status {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.pdb-cal-wizard__status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  gap: 8px;
+}
+.pdb-cal-wizard__status-label {
+  color: var(--text-mute);
+  font-weight: 600;
+}
+.pdb-cal-wizard__status-value {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.pdb-cal-wizard__methods {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pdb-cal-method {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease);
+}
+.pdb-cal-method:hover:not(.is-disabled) {
+  border-color: var(--primary);
+  background: var(--surface-hover);
+}
+.pdb-cal-method:active:not(.is-disabled) {
+  transform: scale(0.98);
+}
+.pdb-cal-method[data-active='true'] {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+.pdb-cal-method.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.pdb-cal-method__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+.pdb-cal-method__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.pdb-cal-method__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+.pdb-cal-method__desc {
+  font-size: 11px;
+  color: var(--text-mute);
+  line-height: 1.4;
+}
+.pdb-cal-wizard__panel {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.pdb-cal-wizard__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ================= CalibrationRuler ================= */
+.pdb-cal-ruler {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.pdb-cal-ruler canvas {
+  display: block;
+  width: 100%;
+}
+.pdb-cal-ruler__label {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-mute);
+  pointer-events: none;
+}
+
+/* ================= OriginHandle ================= */
+.pdb-origin-handle {
+  position: absolute;
+  pointer-events: auto;
+  cursor: crosshair;
+  z-index: 100;
+  touch-action: none;
+}
+.pdb-origin-handle__cross {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.pdb-origin-handle__label {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+  background: var(--surface);
+  padding: 1px 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+/* ================= AlignGuide ================= */
+.pdb-align-guide {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+}
+.pdb-align-guide__corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+}
+.pdb-align-guide__corner--tl { top: 0; left: 0; }
+.pdb-align-guide__corner--tr { top: 0; right: 0; }
+.pdb-align-guide__corner--bl { bottom: 0; left: 0; }
+.pdb-align-guide__corner--br { bottom: 0; right: 0; }
+.pdb-align-guide__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ================= FitWarning ================= */
+.pdb-fit-warning {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--warning);
+  background: color-mix(in srgb, var(--warning) 8%, var(--surface));
+}
+.pdb-fit-warning__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pdb-fit-warning__body {
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.pdb-fit-warning__actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+/* 放得下时的正向确认态（柔和绿，不抢眼） */
+.pdb-fit-warning--ok {
+  border-color: color-mix(in srgb, var(--success) 45%, var(--border));
+  background: color-mix(in srgb, var(--success) 7%, var(--surface));
+  gap: 4px;
+}
+.pdb-fit-warning--ok .pdb-fit-warning__title { color: var(--success); }
+/* 建议分区数据块：与警告文案拉开一点层次 */
+.pdb-fit-warning__suggest {
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.pdb-fit-warning__suggest dd strong { color: var(--primary); }
+/* 「整板 / 分区」当前生效状态小标签 */
+.pdb-fit-warning__tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--warning);
+  background: color-mix(in srgb, var(--warning) 16%, transparent);
+}
+.pdb-fit-warning__tag--ok {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 16%, transparent);
+}
+
+/* ================= 通用辅助 ================= */
+.pdb-cal-info-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  font-size: 12px;
+}
+.pdb-cal-info-grid dt {
+  color: var(--text-mute);
+  font-weight: 600;
+}
+.pdb-cal-info-grid dd {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+.pdb-cal-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pdb-cal-slider-row .pdb-slider {
+  flex: 1;
+}
+.pdb-cal-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pdb-cal-input-row label {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+.pdb-cal-input-row input {
+  width: 72px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  padding: 5px 8px;
+  outline: none;
+  transition: border-color var(--motion-fast) var(--motion-ease);
+}
+.pdb-cal-input-row input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+}
+.pdb-cal-result {
+  font-size: 12px;
+  color: var(--text);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+/* ================= 包边 ================= */
+.pdb-board-form__select {
+  flex: 1;
+  min-width: 0;
+  max-width: 170px;
+  padding: 4px 6px;
+  font-size: 11px;
+  color: var(--text);
+  background: var(--surface-2, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 6px);
+}
+.pdb-board-form__swatch {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong, rgba(0,0,0,0.2));
+}
+.pdb-board-form__border-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-contrast, #fff);
+  background: var(--primary);
+  border: none;
+  border-radius: var(--radius-sm, 6px);
+  cursor: pointer;
+}
+.pdb-board-form__border-btn:hover { filter: brightness(1.05); }
+.pdb-board-form__border-btn:active { transform: scale(0.97); }
+.pdb-board-form__hint {
+  font-size: 10px;
+  color: var(--text-mute, #999);
+  line-height: 1.5;
+}
+
+/* ---- 整板物理尺寸核对 + 实测反算钉距 ---- */
+.pdb-board-form__sizecheck {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.pdb-board-form__size-readout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+.pdb-board-form__size-readout strong {
+  color: var(--text);
+  font-weight: 600;
+}

@@ -1,0 +1,170 @@
+/**
+ * bluetooth/bluetooth.css —— 智能拼豆板探测对话框。
+ * 仅用 tokens.css 已注册变量；配色随主题。
+ */
+
+.pdb-smart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pdb-smart__intro {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-soft);
+}
+.pdb-smart__intro b { color: var(--text); }
+
+/* ---- 环境状态 ---- */
+.pdb-smart__env {
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+}
+.pdb-smart__env .is-ok { color: var(--success); }
+.pdb-smart__env .is-bad { color: var(--danger); }
+
+/* ---- 控制行 ---- */
+.pdb-smart__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+}
+.pdb-smart__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 240px;
+}
+.pdb-smart__input {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+.pdb-smart__input:focus-visible { border-color: var(--focus-ring); }
+.pdb-smart__input:disabled { opacity: 0.5; }
+
+/* ---- 告警 ---- */
+.pdb-smart__alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);
+  border-radius: var(--radius-md);
+}
+
+/* ---- 设备选择器 ---- */
+.pdb-smart__picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.pdb-smart__dev {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  text-align: left;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--motion-ease);
+}
+.pdb-smart__dev:hover { border-color: var(--primary); }
+.pdb-smart__dev-name { flex: 0 1 auto; font-weight: 600; }
+.pdb-smart__dev-id {
+  margin-left: auto;
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  color: var(--text-mute);
+}
+
+/* ---- 当前设备 ---- */
+.pdb-smart__device {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.pdb-smart__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: none;
+}
+.pdb-smart__dot.is-on { background: var(--success); }
+.pdb-smart__dot.is-off { background: var(--text-mute); }
+
+.pdb-smart__muted { color: var(--text-mute); font-size: 12px; }
+
+/* ---- 服务树 ---- */
+.pdb-smart__services {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 42vh;
+  overflow-y: auto;
+}
+.pdb-smart__services details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+}
+.pdb-smart__services summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.pdb-smart__services code {
+  font-family: Consolas, monospace;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface-2);
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.pdb-smart__svc-label { color: var(--text-soft); }
+.pdb-smart__services ul {
+  margin: 6px 0 2px;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pdb-smart__services li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+}
+.pdb-smart__flags {
+  font-family: Consolas, monospace;
+  font-size: 11px;
+  color: var(--accent);
+}

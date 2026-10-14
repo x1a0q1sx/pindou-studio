@@ -1,0 +1,37 @@
+# electron-builder 打包配置（npm run dist → release/ 下产出 Windows 安装器）
+appId: com.pindou.pindoustudio
+productName: PinDouStudio
+copyright: PinDou Studio
+
+directories:
+  # 输出到用户级 LOCALAPPDATA 下的独立目录：避开项目树内的同步/扫描工具长时间锁定
+  # （Windows 新写入的大文件常被杀软/云同步实时引擎占用，导致 EBUSY/EPERM）
+  output: "${env.LOCALAPPDATA}/pindou-studio-release"
+
+# 主进程（electron/、shared/）与渲染产物（dist/）一起进包；node_modules 由 builder 自动收敛
+files:
+  - dist/**
+  - electron/**
+  - shared/**
+  - package.json
+
+asar: true
+
+# PC 虚拟板旁路源码：主进程运行时按需 csc 编译，源码必须随包
+extraResources:
+  - from: tools/virtualboard/VirtualBoard.cs
+    to: tools/virtualboard/VirtualBoard.cs
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: 拼豆工作台

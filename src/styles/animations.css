@@ -1,0 +1,161 @@
+/**
+ * styles/animations.css —— spring 曲线、Toast 滑入、色块上浮、进度环补间。
+ *
+ * 【细节质感清单（逐项可核验）】
+ *   ① 可点元素 :active 微缩放 0.97 ………………… `.pdb-pressable:active`
+ *   ② 面板 / 分区 spring 展开 ………………… `pdb-spring-open` + `.pdb-panel-anim`
+ *   ③ Toast 右上角滑入（并带轻弹） ……… `pdb-toast-in` / `pdb-toast-out`
+ *   ④ 色块悬停上浮 + 阴影 …………………… `.pdb-lift:hover`（-2px + --shadow-md）
+ *   ⑤ 进度环 stroke-dasharray/dashoffset 补间 …… `.pdb-progress-ring circle`
+ *
+ * 全部动效尊重 prefers-reduced-motion：base.css 已做全局 0.01ms 降级，
+ * 本文件末尾再显式关一轮（含 transform 位移），避免无限旋转 / 上浮被遗漏。
+ * 时长/曲线一律引用 --motion-* 令牌，主题切换时动效性格随之改变。
+ */
+
+/* ---- Toast：右上角滑入 / 滑出 ---- */
+@keyframes pdb-toast-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+@keyframes pdb-toast-out {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(24px) scale(0.94);
+  }
+}
+
+/* ---- 模态：轻弹入场 ---- */
+@keyframes pdb-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes pdb-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---- 主题/布局预览卡片：入场错峰（stagger 由内联 animation-delay 提供） ---- */
+@keyframes pdb-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- 色块悬停轻微上浮（配阴影），用 transition 而非 keyframes ---- */
+.pdb-lift {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease);
+}
+.pdb-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- 可点元素 :active 微缩放 0.97（Button 等组件统一挂此类） ---- */
+.pdb-pressable {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    background-color var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease);
+}
+.pdb-pressable:active {
+  transform: scale(0.97);
+}
+
+/* ---- 进度环补间：stroke-dasharray/dashoffset 过渡（进度列表用） ---- */
+.pdb-progress-ring circle {
+  transition:
+    stroke-dashoffset var(--motion-slow) var(--motion-ease),
+    stroke-dasharray var(--motion-slow) var(--motion-ease),
+    stroke var(--motion-base) var(--motion-ease);
+}
+
+/* ---- 面板展开/折叠（PanelToggle 驱动的宽度过渡） ---- */
+.pdb-panel-anim {
+  transition:
+    width var(--motion-base) var(--motion-ease),
+    height var(--motion-base) var(--motion-ease),
+    opacity var(--motion-base) var(--motion-ease),
+    transform var(--motion-base) var(--motion-ease);
+}
+
+/* ---- spring 展开（面板 / 下拉分区 / 向导内嵌块首次出现） ---- */
+@keyframes pdb-spring-open {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.985);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(1px) scale(1.006);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.pdb-spring-open {
+  transform-origin: top center;
+  animation: pdb-spring-open var(--motion-base) var(--motion-ease);
+}
+
+/* 注：全局 :focus-visible 轮廓已由 base.css 统一给出，此处不重复定义，避免覆盖既有无障碍基线。 */
+
+/* ---- 呼吸发光（glowDark 下选中色提示，可复用） ---- */
+@keyframes pdb-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 var(--focus-ring);
+  }
+  50% {
+    box-shadow: 0 0 14px 3px var(--focus-ring);
+  }
+}
+.pdb-glow-pulse {
+  animation: pdb-glow-pulse 2.2s var(--motion-ease) infinite;
+}
+
+/* ========== 无障碍：显式降级（不只依赖 base.css 的全局降级） ========== */
+/* base.css 已把全部 animation-duration / transition-duration 压到 0.01ms，
+   但无限旋转类动效（呼吸发光 / 加载圈）在部分引擎上仍会消耗合成帧，
+   且 `:active` / `:hover` 的 transform 位移对前庭敏感用户依旧可见，故这里再显式关一轮。 */
+@media (prefers-reduced-motion: reduce) {
+  .pdb-glow-pulse,
+  .pdb-spring-open {
+    animation: none !important;
+  }
+  .pdb-lift:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+  .pdb-pressable:active {
+    transform: none;
+  }
+  .pdb-progress-ring circle,
+  .pdb-panel-anim {
+    transition: none !important;
+  }
+}

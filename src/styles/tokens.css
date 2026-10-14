@@ -1,0 +1,226 @@
+/**
+ * styles/tokens.css —— :root 默认令牌 + [data-theme=...] 覆盖。
+ *
+ * 双保险机制：applyTheme.ts 会把当前主题的 tokens 以 inline style 写入 :root（优先），
+ * 这里的静态值保证「JS 未跑/首帧」也有正确底色，并作为令牌清单的文档化契约。
+ *
+ * 【契约】21 个 UI 令牌键名固定：
+ *   --bg --bg-alt --surface --surface-2 --surface-hover --border --border-strong
+ *   --text --text-soft --text-mute --primary --primary-soft --primary-contrast
+ *   --accent --accent-soft --success --warning --danger --focus-ring --overlay --shadow-color
+ * Canvas 令牌（canvasBg/gridLine/...）不在这里 —— Canvas 读不到 CSS 变量，由主题对象直传渲染器。
+ */
+
+:root {
+  /* ---- 颜色令牌（默认 = macaron，与 themes/macaron.ts 一致） ---- */
+  --bg: #fff8f2;
+  --bg-alt: #fdf0e6;
+  --surface: #ffffff;
+  --surface-2: #fff3ec;
+  --surface-hover: #ffefe6;
+  --border: #f6dfe5;
+  --border-strong: #ebc9d4;
+  --text: #6b4f52;
+  --text-soft: #93737a;
+  --text-mute: #bca3a8;
+  --primary: #ff9bb3;
+  --primary-soft: #ffd9e2;
+  --primary-contrast: #5c2432;
+  --accent: #a8e6cf;
+  --accent-soft: #dcf5e9;
+  --success: #6fcf97;
+  --warning: #ffb74d;
+  --danger: #eb5757;
+  --focus-ring: rgba(255, 155, 179, 0.4);
+  --overlay: rgba(107, 79, 82, 0.28);
+  --shadow-color: rgba(232, 168, 186, 0.22);
+
+  /* ---- 主题私有（非契约） ---- */
+  --peach: #ffd3b6;
+  --lavender: #c7ceea;
+  --lemon: #fff1a8;
+  --paper-texture: none;
+
+  /* ---- 形变令牌（applyTheme 按主题覆写） ---- */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --motion-fast: 120ms;
+  --motion-base: 220ms;
+  --motion-slow: 420ms;
+  --motion-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shadow-sm: 0 1px 2px var(--shadow-color);
+  --shadow-md: 0 6px 18px var(--shadow-color);
+  --shadow-lg: 0 18px 44px var(--shadow-color);
+
+  color-scheme: light;
+}
+
+/* ================= macaron（默认，:root 已含，此处显式声明便于对照） ================= */
+[data-theme='macaron'] {
+  --bg: #fff8f2;
+  --bg-alt: #fdf0e6;
+  --surface: #ffffff;
+  --surface-2: #fff3ec;
+  --surface-hover: #ffefe6;
+  --border: #f6dfe5;
+  --border-strong: #ebc9d4;
+  --text: #6b4f52;
+  --text-soft: #93737a;
+  --text-mute: #bca3a8;
+  --primary: #ff9bb3;
+  --primary-soft: #ffd9e2;
+  --primary-contrast: #5c2432;
+  --accent: #a8e6cf;
+  --accent-soft: #dcf5e9;
+  --success: #6fcf97;
+  --warning: #ffb74d;
+  --danger: #eb5757;
+  --focus-ring: rgba(255, 155, 179, 0.4);
+  --overlay: rgba(107, 79, 82, 0.28);
+  --shadow-color: rgba(232, 168, 186, 0.22);
+  --peach: #ffd3b6;
+  --lavender: #c7ceea;
+  --lemon: #fff1a8;
+  --paper-texture: none;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --motion-fast: 120ms;
+  --motion-base: 220ms;
+  --motion-slow: 420ms;
+  --motion-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --shadow-sm: 0 1px 2px var(--shadow-color);
+  --shadow-md: 0 6px 18px var(--shadow-color);
+  --shadow-lg: 0 18px 44px var(--shadow-color);
+  color-scheme: light;
+}
+
+/* ================= glowDark 暗夜发光底板 ================= */
+[data-theme='glowDark'] {
+  --bg: #05060a;
+  --bg-alt: #080a10;
+  --surface: #0e1118;
+  --surface-2: #141926;
+  --surface-hover: #1a2030;
+  --border: #1e2530;
+  --border-strong: #2c3542;
+  --text: #e6edf7;
+  --text-soft: #a7b2c4;
+  --text-mute: #6c7789;
+  --primary: #4cc9ff;
+  --primary-soft: #123a4d;
+  --primary-contrast: #04121b;
+  --accent: #ff6fd8;
+  --accent-soft: #43123a;
+  --success: #3ddc97;
+  --warning: #ffb454;
+  --danger: #ff6b6b;
+  --focus-ring: rgba(76, 201, 255, 0.45);
+  --overlay: rgba(2, 3, 6, 0.66);
+  --shadow-color: rgba(0, 0, 0, 0.55);
+  --peach: #ff9e6f;
+  --lavender: #9aa5ff;
+  --lemon: #ffe066;
+  --paper-texture: none;
+
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --motion-fast: 90ms;
+  --motion-base: 160ms;
+  --motion-slow: 300ms;
+  --motion-ease: cubic-bezier(0.32, 0.72, 0.24, 1);
+  --shadow-sm: 0 1px 3px var(--shadow-color);
+  --shadow-md: 0 8px 24px var(--shadow-color);
+  --shadow-lg: 0 20px 60px var(--shadow-color);
+  color-scheme: dark;
+}
+
+/* ================= journal 日系手账贴纸（纸纹由 applyTheme 写入 data-URI） ================= */
+[data-theme='journal'] {
+  --bg: #fbf6e9;
+  --bg-alt: #f5edda;
+  --surface: #fffdf6;
+  --surface-2: #f8f1df;
+  --surface-hover: #f3ead3;
+  --border: #e4d9be;
+  --border-strong: #d2c29c;
+  --text: #5c5142;
+  --text-soft: #857864;
+  --text-mute: #a99c85;
+  --primary: #e8a87c;
+  --primary-soft: #f8e3d2;
+  --primary-contrast: #4c3320;
+  --accent: #85b09a;
+  --accent-soft: #e1ede5;
+  --success: #7fa98c;
+  --warning: #dfa15c;
+  --danger: #c96a5b;
+  --focus-ring: rgba(232, 168, 124, 0.4);
+  --overlay: rgba(92, 81, 66, 0.3);
+  --shadow-color: rgba(160, 140, 100, 0.22);
+  --peach: #f2c6a0;
+  --lavender: #b8aecf;
+  --lemon: #eed98c;
+  /* --paper-texture 无法在 CSS 里内联生成，由 applyTheme.ts 注入 SVG data-URI */
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+  --motion-fast: 130ms;
+  --motion-base: 240ms;
+  --motion-slow: 460ms;
+  --motion-ease: cubic-bezier(0.3, 0.9, 0.35, 1.02);
+  --shadow-sm: 0 1px 2px var(--shadow-color);
+  --shadow-md: 0 5px 14px var(--shadow-color);
+  --shadow-lg: 0 14px 36px var(--shadow-color);
+  color-scheme: light;
+}
+
+/* ================= minimal 极简清透专注 ================= */
+[data-theme='minimal'] {
+  --bg: #ffffff;
+  --bg-alt: #fafafa;
+  --surface: #ffffff;
+  --surface-2: #f5f5f5;
+  --surface-hover: #f0f0f0;
+  --border: #e5e5e5;
+  --border-strong: #cccccc;
+  --text: #1a1a1a;
+  --text-soft: #555555;
+  --text-mute: #8c8c8c;
+  --primary: #2f6fed;
+  --primary-soft: #e4edfd;
+  --primary-contrast: #ffffff;
+  --accent: #12b886;
+  --accent-soft: #e0f5ee;
+  --success: #2b8a3e;
+  --warning: #e8a33d;
+  --danger: #d64545;
+  --focus-ring: rgba(47, 111, 237, 0.3);
+  --overlay: rgba(26, 26, 26, 0.24);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --peach: #f0a878;
+  --lavender: #9b8ec4;
+  --lemon: #e8c84a;
+  --paper-texture: none;
+
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 999px;
+  --motion-fast: 80ms;
+  --motion-base: 140ms;
+  --motion-slow: 260ms;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --shadow-sm: none;
+  --shadow-md: 0 1px 2px var(--shadow-color);
+  --shadow-lg: 0 4px 12px var(--shadow-color);
+  color-scheme: light;
+}

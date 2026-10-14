@@ -1,0 +1,110 @@
+/**
+ * styles/base.css —— 重置、系统圆润字体栈、滚动条美化。
+ * 字体【契约】：只用系统字体（幼圆/YouYuan/Yuanti SC/微软雅黑），零 Web 字体下载、离线可用。
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* 根画布随主题底色：overscroll/橡皮筋回弹区域也保持当前主题色，
+   且 html 成为可靠的主题信号（body 承载纸纹 background-image，html 承载纯底色）。 */
+html {
+  background-color: var(--bg);
+}
+
+body {
+  font-family:
+    '幼圆', 'YouYuan', 'Yuanti SC', '微软雅黑', 'Microsoft YaHei',
+    'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+  background-color: var(--bg);
+  /* journal 主题的纸纹层（--paper-texture 由 applyTheme 注入 data-URI，其余主题为 none） */
+  background-image: var(--paper-texture);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden; /* 应用为工作台形态，滚动只发生在面板内部 */
+  user-select: none; /* 画布工作台默认禁选中文本，输入控件单独放开 */
+}
+
+input,
+textarea,
+[contenteditable='true'] {
+  user-select: text;
+}
+
+h1, h2, h3, h4, p, figure {
+  margin: 0;
+  font-weight: 600;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+canvas {
+  display: block;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--text);
+}
+
+/* ---- 滚动条美化（跟随主题明暗） ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: var(--radius-pill);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--text-mute);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ---- 无障碍：尊重系统「减少动态效果」 ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
